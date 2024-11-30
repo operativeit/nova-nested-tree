@@ -19,7 +19,7 @@
                       :normalizer="normalizer"
                       :disableFuzzyMatching="true"
                       v-if="renderComponent"
-
+                      zIndex="10"
           >
             <label slot="option-label" slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
                    class="option-label" :class="node.raw.boolean_is_active? labelClassName: labelClassName+' text-60'">
