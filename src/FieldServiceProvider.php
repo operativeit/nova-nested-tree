@@ -49,7 +49,6 @@ class FieldServiceProvider extends ServiceProvider
         $factory->register($this->app->make(BelongsToManyHandler::class));
         $factory->register($this->app->make(BelongsToHandler::class));
         $factory->register($this->app->make(HasManyHandler::class));
-        $factory->register($this->app->make(HasOneHandler::class));
 
         $this->app->singleton(Cache::class, ArrayCache::class);
     }
