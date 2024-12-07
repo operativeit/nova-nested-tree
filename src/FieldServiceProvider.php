@@ -7,6 +7,7 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use ZakariaTlilani\NovaNestedTree\Domain\Cache\ArrayCache;
 use ZakariaTlilani\NovaNestedTree\Domain\Cache\Cache;
+use ZakariaTlilani\NovaNestedTree\Domain\Relation\Handlers\HasOneHandler;
 use ZakariaTlilani\NovaNestedTree\Domain\Relation\Handlers\BelongsToHandler;
 use ZakariaTlilani\NovaNestedTree\Domain\Relation\Handlers\BelongsToManyHandler;
 use ZakariaTlilani\NovaNestedTree\Domain\Relation\Handlers\HasManyHandler;
@@ -48,7 +49,7 @@ class FieldServiceProvider extends ServiceProvider
         $factory->register($this->app->make(BelongsToManyHandler::class));
         $factory->register($this->app->make(BelongsToHandler::class));
         $factory->register($this->app->make(HasManyHandler::class));
-
+        $factory->register($this->app->make(HasOneHandler::class));
 
         $this->app->singleton(Cache::class, ArrayCache::class);
     }

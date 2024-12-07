@@ -19,12 +19,12 @@
                       :normalizer="normalizer"
                       :disableFuzzyMatching="true"
                       v-if="renderComponent"
-                      zIndex="10"
+                      zIndex="999"
           >
-            <label slot="option-label" slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
-                   class="option-label" :class="node.raw.boolean_is_active? labelClassName: labelClassName+' text-60'">
-              {{ node.label }}
-            </label>
+            <template #option-label="{ node, shouldShowCount, count,labelClassName, countClassName }">
+               <div class="option-label" :class="node.raw.boolean_is_active? labelClassName: labelClassName+' text-60'">{{ node[field.labelKey] }} </div>
+            </template>
+
           </treeselect>
         </div>
         <div class="w-3/5 pl-8 pt-2" v-if="field.displayPath && fullUrl">
@@ -36,26 +36,6 @@
     </template>
   </default-field>
 </template>
-
-<style type="text/css">
-.categories-tree .py-6.px-8.w-1\/2 { width: 80%; }
-.category-list { list-style: none;}
-
-.vue-treeselect__multi-value-item {
-  background-color: rgba(var(--colors-primary-500),0.2);
-  color: rgba(var(--colors-primary-500));
-}
-
-.vue-treeselect__value-remove {
-  color: rgba(var(--colors-primary-500));
-}
-.vue-treeselect__checkbox--checked {
-  border-color: rgba(var(--colors-primary-500));
-  background-color: rgba(var(--colors-primary-500));
-}
-
-</style>
-
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
 
@@ -74,16 +54,37 @@ export default {
       selectedValues: null,
       fullUrl:null,
       renderComponent: true,
+options: [ {
+          id: 'a',
+          label: 'a',
+          children: [ {
+            id: 'aa',
+            label: 'aa',
+          }, {
+            id: 'ab',
+            label: 'ab',
+          } ],
+        }, {
+          id: 'b',
+          label: 'b',
+        }, {
+          id: 'c',
+          label: 'c',
+        } ],
     };
+  },
+  computed: {
   },
   watch: {
     selectedValues: function(val,old) {
-      //do something when the data changes.
+      if (!this.field.multiple) return;
       let diff = [],diff_reverse = [];
-      if(old != null){
+
+      if(old != null) {
         diff = val.filter(x => old.indexOf(x) === -1);
         diff_reverse = old.filter(x => val.indexOf(x) === -1);
       }
+
       if (val && (diff.length > 0 || diff_reverse.length > 0)) {
         this.getCategoryFullPath(val);
       }

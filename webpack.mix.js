@@ -6,7 +6,7 @@ mix
     .setPublicPath('dist')
     .js('resources/js/field.js', 'js')
     .vue({ version: 3 })
-    .sass('resources/sass/field.scss', 'css')
+    .css('resources/css/field.css', 'css')
     .nova('phoenix-lib/nova-nested-tree-attach-many')
     .alias({
         '@': 'vendor/laravel/nova/resources/js/',
